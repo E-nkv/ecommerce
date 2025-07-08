@@ -1,0 +1,114 @@
+Project: Go-React E-commerce Platform
+
+This document outlines the core features, technical requirements, and architectural considerations for building a modern, full-stack e-commerce application.
+1. Core Application Features
+1.1. Customer-Facing Features
+
+    Product Catalog:
+
+        Homepage displaying featured products and categories.
+
+        Product listing page with advanced filtering (by category, price range, ratings) and sorting options.
+
+        Detailed product page with image galleries, descriptions, specifications, customer reviews, and ratings.
+
+        Search functionality with autocomplete suggestions.
+
+    Shopping Cart & Checkout:
+
+        Add/remove/update item quantities in the shopping cart.
+
+        Persistent cart for logged-in users.
+
+        Multi-step, user-friendly checkout process (shipping info, payment, review).
+
+    User Accounts:
+
+        Secure user registration and login.
+
+        User profile management (shipping/billing addresses, personal info).
+
+        Order history and status tracking.
+
+        Wishlist functionality.
+
+    Customer Support:
+
+        (Future Integration) Real-time chat with support agents.
+
+        FAQ page.
+
+        Contact Us form.
+
+1.2. Administrative Features (Admin Panel)
+
+    Dashboard: Overview of sales, new orders, and user registrations.
+
+    Product Management: Full CRUD (Create, Read, Update, Delete) for products and categories.
+
+    Inventory Management: Track stock levels for each product.
+
+    Order Management: View, search, and update the status of orders (e.g., processing, shipped, delivered).
+
+    User Management: View and manage customer accounts.
+
+2. Technical Requirements & Stack
+2.1. Backend (Go)
+
+    Framework/Routing: go-chi for a lightweight, idiomatic, and high-performance HTTP router.
+
+    Database: PostgreSQL for its robustness, reliability, and rich feature set for relational data.
+
+    ORM: GORM to map Go structs to database tables, simplifying database operations.
+
+    Authentication:
+
+        JWT-based authentication using access and refresh tokens.
+
+        Access tokens will be short-lived (e.g., 15 minutes).
+
+        Refresh tokens will be long-lived (e.g., 7 days) and stored securely in an HTTPOnly cookie.
+
+    Payment Gateway Integration:
+
+        Stripe: For credit/debit card processing.
+
+        PayPal: For alternative payment options.
+
+        (Note: Twilio is primarily for communications, not payments. We can integrate it for SMS notifications for order confirmations, etc.)
+
+2.2. Frontend (React)
+
+    Framework/Library: React with TypeScript for building a scalable and type-safe user interface.
+
+    Styling: Tailwind CSS for a utility-first, responsive design system.
+
+    Routing & Performance:
+
+        React Router for client-side routing.
+
+        Lazy Loading: Routes will be code-split and lazy-loaded to reduce the initial bundle size and improve load times.
+
+    State Management: A modern state management library (e.g., Zustand or Redux Toolkit) to manage global state like auth status and shopping cart.
+
+    SEO (Search Engine Optimization):
+
+        Use React Helmet or a similar library to manage page titles, meta descriptions, and other head tags dynamically.
+
+        Ensure semantic HTML for better crawling.
+
+        Consider Server-Side Rendering (SSR) with a framework like Next.js in a future iteration for optimal SEO, but start with client-side rendering for simplicity.
+
+2.3. Cross-Cutting Concerns
+
+    API Design: A well-documented RESTful API to serve as the contract between the frontend and backend.
+
+    Security:
+
+        Secure password hashing using bcrypt.
+
+        Protection against common vulnerabilities (XSS, CSRF).
+
+        Input validation on both client and server.
+
+    Deployment: Containerize both frontend and backend applications using Docker for consistent environments and easier deployment.

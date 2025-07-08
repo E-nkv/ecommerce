@@ -1,0 +1,57 @@
+// ENDPOINTS
+
+User/Authentication
+-------------------
+POST   /auth/signup              Register a new user
+POST   /auth/login               User login
+POST   /auth/logout              User logout (invalidate refresh token)
+GET    /auth/me                  Get current user profile (requires auth)
+PUT    /auth/me                  Update user profile (name, email, etc.)
+GET    /auth/addresses           List user addresses
+POST   /auth/addresses           Add a new address
+PUT    /auth/addresses/{id}      Update an address
+DELETE /auth/addresses/{id}      Delete an address
+
+Product Catalog
+---------------
+GET    /products                 List products (with filters: category, price, rating, search, etc.)
+GET    /products/{id}            Get product details
+GET    /categories               List categories
+
+Shopping Cart
+-------------
+GET    /cart                     Get current user's cart
+POST   /cart/items               Add item to cart
+PUT    /cart/items/{id}          Update item quantity
+DELETE /cart/items/{id}          Remove item from cart
+
+Wishlist
+--------
+GET    /wishlist                 Get user's wishlist
+POST   /wishlist/{product_id}    Add product to wishlist
+DELETE /wishlist/{product_id}    Remove product from wishlist
+
+Orders & Checkout
+-----------------
+POST   /checkout                 Place an order (checkout)
+GET    /orders                   List user's orders
+GET    /orders/{id}              Get order details
+
+Product Reviews/Ratings
+-----------------------
+POST   /products/{id}/ratings    Add a rating/review
+GET    /products/{id}/ratings    List ratings for a product
+
+Admin Endpoints (require admin auth)
+------------------------------------
+GET    /admin/dashboard          Sales, orders, users overview
+GET    /admin/orders             List all orders
+PUT    /admin/orders/{id}        Update order status
+GET    /admin/users              List all users
+GET    /admin/products           List all products (with admin controls)
+POST   /admin/products           Create product
+PUT    /admin/products/{id}      Update product
+DELETE /admin/products/{id}      Delete product
+POST    /admin/categories        Create category
+PUT     /admin/categories/{id}   Update category
+DELETE  /admin/categories/{id}
