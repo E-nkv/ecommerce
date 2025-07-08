@@ -9,6 +9,7 @@ type User struct {
 	ID        uint   `gorm:"primaryKey"`
 	Email     string `gorm:"unique;not null"`
 	Password  string `gorm:"not null"`
+	Role      string `gorm:"not null;default 'user'"` // e.g., "user", "admin"
 	Name      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -70,7 +71,7 @@ type Rating struct {
 	ID        uint `gorm:"primaryKey"`
 	UserID    uint `gorm:"index;not null"`
 	ProductID uint `gorm:"index;not null"`
-	Score     int  `gorm:"not null"` // 1-5
+	Score     int
 	Comment   string
 	CreatedAt time.Time
 }
