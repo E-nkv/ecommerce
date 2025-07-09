@@ -1,0 +1,11 @@
+DELETE FROM cart_items;
+DELETE FROM carts;
+DELETE FROM wishlists;
+DELETE FROM ratings;
+DELETE FROM order_items;
+DELETE FROM orders;
+DELETE FROM addresses;
+DELETE FROM product_images;
+DELETE FROM products;
+DELETE FROM categories;
+DELETE FROM users;

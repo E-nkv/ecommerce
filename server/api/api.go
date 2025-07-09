@@ -22,5 +22,10 @@ func (app *App) Run(addr string) error {
 	m.Use(middleware.Recoverer)
 	m.Use(middleware.Logger)
 	m.Get("/", app.hs.HandleHome)
+	m.Route("/v1/products/", func(r chi.Router) {
+		r.Get("/{id}", app.hs.HandleGetProduct)
+		r.Get("/", app.hs.HandleGetProducts)
+		r.Post("/{id}/rate", app.hs.HandleRateProduct)
+	})
 	return http.ListenAndServe(addr, m)
 }

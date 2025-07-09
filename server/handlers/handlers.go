@@ -1,16 +1,16 @@
 package handlers
 
 import (
-	"ecom/server/services"
+	"ecom/server/services/products"
 	"net/http"
 )
 
 type Handlers struct {
-	svc services.IService
+	ProductService *products.ProductService
 }
 
-func NewHandlers(svc services.IService) *Handlers {
-	return &Handlers{svc: svc}
+func NewHandlers(productSvc *products.ProductService) *Handlers {
+	return &Handlers{ProductService: productSvc}
 }
 
 func (h *Handlers) HandleHome(w http.ResponseWriter, r *http.Request) {
