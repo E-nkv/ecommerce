@@ -1,12 +1,15 @@
 package products
 
 import (
-	"database/sql"
+	"context"
 	"ecom/server/customErrors"
 	"ecom/server/repos"
+	repoProducts "ecom/server/repos/products"
 	"ecom/server/types"
+	"errors"
 	"fmt"
-	"strconv"
+
+	"github.com/jackc/pgx/v5"
 )
 
 type ProductService struct {
@@ -17,18 +20,22 @@ func NewService(repo repos.IProductRepo) *ProductService {
 	return &ProductService{Repo: repo}
 }
 
-func (svc *ProductService) Get(productID string) (types.Product, error) {
-	v, err := strconv.ParseInt(productID, 10, 64)
+func (svc *ProductService) Get(ctx context.Context, productID int64) (types.Product, error) {
+	p, err := svc.Repo.Get(ctx, productID)
 	if err != nil {
-		return types.Product{}, fmt.Errorf("expected productID to be an int64")
-	}
-	p, err := svc.Repo.Get(v)
-	if err != nil {
-		switch err {
-		case sql.ErrNoRows:
+		if errors.Is(err, pgx.ErrNoRows) {
 			return p, customErrors.NotFound
 		}
 		return types.Product{}, err
 	}
 	return p, nil
+}
+
+func (svc *ProductService) GetAll(ctx context.Context, options repoProducts.GetAllOptions) (repoProducts.GetAllResult, error) {
+	res, err := svc.Repo.GetAll(ctx, options)
+	if err != nil {
+		// The service layer can add more context or logic here.
+		return repoProducts.GetAllResult{}, fmt.Errorf("failed to get all products: %w", err)
+	}
+	return res, nil
 }
